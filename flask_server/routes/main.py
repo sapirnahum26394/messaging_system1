@@ -47,9 +47,11 @@ def get_unread_messages():
 @login_required
 def delete_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
-    Messages.query.filter_by(id=msg_id).delete()
-    db.session.commit()
-    return 'message deleted successfully'
+    if msg_id != 0:
+        Messages.query.filter_by(id=msg_id).delete()
+        db.session.commit()
+        return 'message deleted successfully'
+    return 'message id is invalid'
 
 
 @main.route('/open_msg',methods=['GET', 'POST'])
