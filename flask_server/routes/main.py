@@ -58,12 +58,12 @@ def open_msg(msg_id):
     msg.opened = True
     db.session.commit()
 
-    return json.dump(msg)
+    return json.dumps(msg)
 
 
 def messagesToJSON(messages):
     jsn={}
     for msg in messages:
-        jsn[msg.id] = json.dump(msg)
+        jsn[msg.id] = json.dumps(msg)
         print(jsn)
-    return json.dump(jsn)
+    return json.dumps(jsn)
