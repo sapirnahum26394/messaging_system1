@@ -64,6 +64,11 @@ def open_msg(msg_id):
 def messagesToJSON(messages):
     jsn={}
     for msg in messages:
-        jsn[msg.id] = json.dumps(msg)
+        jsn[msg.id] = {
+            'sender': msg.sender,
+            'subject': msg.subject,
+            'date': msg.date,
+            'message': msg.message
+        }
         print(jsn)
     return json.dumps(jsn)
