@@ -43,17 +43,19 @@ def get_unread_messages():
     return messagesToJSON(messages)
 
 
-@main.route('/delete_msg/<int:msg_id>')
+@main.route('/delete_msg')
 @login_required
-def delete_msg(msg_id):
+def delete_msg():
+    msg_id = request.args.get('msg_id', default=0, type=int),
     Messages.query.filter_by(id=msg_id).delete()
     db.session.commit()
     return 'message deleted successfully'
 
 
-@main.route('/open_msg/<int:msg_id>')
+@main.route('/open_msg')
 @login_required
-def open_msg(msg_id):
+def open_msg():
+    msg_id = request.args.get('msg_id', default=0, type=int),
     msg = Messages.query.get_or_404(msg_id)
     msg.opened = True
     db.session.commit()
@@ -70,5 +72,4 @@ def messagesToJSON(messages):
             'date': msg.date,
             'message': msg.message
         }
-        print(jsn)
     return json.dumps(jsn)
