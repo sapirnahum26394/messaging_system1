@@ -24,7 +24,7 @@ def register():
     return '{ register_status : failed }'
 
 
-@auth.route('/login', methods=['POST'])
+@auth.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         next = request.arg.get('next',default=None, type=str)
