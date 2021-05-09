@@ -43,7 +43,7 @@ def get_unread_messages():
     return messagesToJSON(messages)
 
 
-@main.route('/delete_msg')
+@main.route('/delete_msg',methods=['GET', 'POST'])
 @login_required
 def delete_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
@@ -52,7 +52,7 @@ def delete_msg():
     return 'message deleted successfully'
 
 
-@main.route('/open_msg')
+@main.route('/open_msg',methods=['GET', 'POST'])
 @login_required
 def open_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
