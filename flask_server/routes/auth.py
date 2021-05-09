@@ -34,12 +34,13 @@ def login():
 
         if not user or not check_password_hash(user.password, password):
             error_message = 'Could not login. Please check and try again.'
+            return '{ login_status : failed,\nerror : ' + error_message + ' }'
 
         if not error_message:
             login_user(user)
             return '{ login_status : success }'
 
-    return '{ register_status : failed,\nerror : ' + error_message + ' }'
+    return '{ login_status : failed }'
 
 
 @auth.route('/logout')
