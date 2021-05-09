@@ -62,7 +62,7 @@ def open_msg():
         db.session.commit()
     else:
         msg = {}
-    return json.dumps(msg)
+    return messagesToJSON([msg])
 
 
 def messagesToJSON(messages):
