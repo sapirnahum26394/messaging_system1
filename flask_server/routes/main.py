@@ -50,8 +50,8 @@ def delete_msg():
     if msg_id != 0:
         Messages.query.filter_by(id=msg_id).delete()
         db.session.commit()
-        return 'message deleted successfully'
-    return 'message id is invalid'
+        return '{ message deleted successfully }'
+    return '{ message id is invalid }'
 
 
 @main.route('/open_msg',methods=['GET'])
