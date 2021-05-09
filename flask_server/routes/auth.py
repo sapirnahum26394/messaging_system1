@@ -27,7 +27,7 @@ def register():
 @auth.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'GET':
-        next = request.arg.get('next', default=None, type=str)
+        next = request.args.get('next', default=None, type=str)
         if next != None:
             return '{ login is required }'
     if request.method == 'POST':
