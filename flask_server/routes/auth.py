@@ -8,7 +8,7 @@ from flask_server.models import Messages, User
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         user_name = request.args.get('user_name', default=None, type=str)
@@ -24,7 +24,7 @@ def register():
     return '{ register_status : failed }'
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         user_name = request.args.get('user_name', default=None, type=str)
@@ -43,7 +43,7 @@ def login():
     return '{ login_status : failed }'
 
 
-@auth.route('/logout')
+@auth.route('/logout',methods=['POST'])
 def logout():
     logout_user()
     return '{ logout_status : success }'
