@@ -13,7 +13,7 @@ main = Blueprint('main', __name__)
 def index():
     return '{ Welcome to messaging system, By: Sapir Nahum }'
 
-@main.route('/write_msg', methods=['GET', 'POST'])
+@main.route('/write_msg', methods=['POST'])
 @login_required
 def write_msg():
     if request.method == 'POST':
@@ -28,14 +28,14 @@ def write_msg():
         db.session.commit()
     return '{ status : message sent }'
 
-@main.route('/get_messages', methods=['GET', 'POST'])
+@main.route('/get_messages', methods=['GET'])
 @login_required
 def get_messages():
     user = current_user.name
     messages = Messages.query.filter_by(receiver=user).all()
     return messagesToJSON(messages)
 
-@main.route('/get_unread_messages', methods=['GET', 'POST'])
+@main.route('/get_unread_messages', methods=['GET'])
 @login_required
 def get_unread_messages():
     user = current_user.name
@@ -43,7 +43,7 @@ def get_unread_messages():
     return messagesToJSON(messages)
 
 
-@main.route('/delete_msg',methods=['GET', 'POST'])
+@main.route('/delete_msg',methods=['DELETE'])
 @login_required
 def delete_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
@@ -54,7 +54,7 @@ def delete_msg():
     return 'message id is invalid'
 
 
-@main.route('/open_msg',methods=['GET', 'POST'])
+@main.route('/open_msg',methods=['GET'])
 @login_required
 def open_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
