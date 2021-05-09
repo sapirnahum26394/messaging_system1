@@ -56,10 +56,12 @@ def delete_msg():
 @login_required
 def open_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
-    msg = Messages.query.get_or_404(msg_id)
-    msg.opened = True
-    db.session.commit()
-
+    if msg_id != 0:
+        msg = Messages.query.get_or_404(msg_id)
+        msg.opened = True
+        db.session.commit()
+    else:
+        msg = {}
     return json.dumps(msg)
 
 
