@@ -33,14 +33,14 @@ def write_msg():
 def get_messages():
     user = current_user.name
     messages = Messages.query.filter_by(receiver=user).all()
-    return jsonify(messages)
+    return toJSON(messages)
 
 @main.route('/get_unread_messages', methods=['GET', 'POST'])
 @login_required
 def get_unread_messages():
     user = current_user.name
     messages = Messages.query.filter_by(receiver=user,opened=False).all()
-    return jsonify(messages)
+    return toJSON(messages)
 
 
 @main.route('/delete_msg/<int:msg_id>')
@@ -58,4 +58,8 @@ def open_msg(msg_id):
     msg.opened = True
     db.session.commit()
 
-    return json.dump(msg)
+    return toJSON(msg)
+
+
+def toJSON(msg):
+    return json.dumps(msg, default=lambda o: o.__dict__, indent=4)
