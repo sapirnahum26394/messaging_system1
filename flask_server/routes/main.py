@@ -59,7 +59,9 @@ def delete_msg():
 def open_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
     if msg_id != 0:
-        msg = Messages.query.get_or_404(msg_id)
+        msg = Messages.query.get(msg_id)
+        if msg is None:
+            return "{ message id is not valid }"
         msg.opened = True
         db.session.commit()
     else:
