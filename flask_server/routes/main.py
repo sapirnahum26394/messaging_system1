@@ -48,7 +48,10 @@ def get_unread_messages():
 def delete_msg():
     msg_id = request.args.get('msg_id', default=0, type=int),
     if msg_id != 0:
-        Messages.query.filter_by(id=msg_id).delete()
+        msg = Messages.query.get(msg_id)
+        if msg is None:
+            return "{ message id is not valid }"
+        msg.delete()
         db.session.commit()
         return '{ message deleted successfully }'
     return '{ message id is invalid }'
